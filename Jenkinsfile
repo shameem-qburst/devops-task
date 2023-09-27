@@ -45,6 +45,7 @@ pipeline {
         // Deploy
         stage('Kubernetes') {
             steps {
+                sh 'export /home/shameem/.kube/config'
                 sh 'kubectl config use-context shameem-context'
                 sh 'kubectl apply -f ./Kubernetes/'
             }
