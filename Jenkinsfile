@@ -48,8 +48,8 @@ pipeline {
         stage('EKS deploying using Terraform') {
             steps {
                 sh 'cd Terraform/ && terraform init'
-                sh 'terraform validate ./Terraform/'
-                sh 'terraform plan ./Terraform/'
+                sh 'terraform validate'
+                sh 'terraform plan'
             }
         } // Success
 
