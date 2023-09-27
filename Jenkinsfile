@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    // tools {
-    //     maven 'MAVEN'
-    // }
+    tools {
+        maven 'MAVEN'
+    }
     environment {
         DOCKER_IMAGE_NAME = "django-todo-app"
         DOCKER_HUB_REPO = "shameem2001/django-todo-app:v1.0"
@@ -14,7 +14,7 @@ pipeline {
     stage('SonarQube Analysis (SAST)') {
       steps {
         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-          sh 'sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_URL'
+          sh 'mvn -Dmaven.test.failure.ignore verify sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_URL'
         }
       }
     }
