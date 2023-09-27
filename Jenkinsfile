@@ -48,15 +48,15 @@ pipeline {
             steps {
                 sh 'aws --version'
             }
-        }
-
-        stage('EKS deploying using Terraform') {
-            steps {
-                sh 'cd Terraform/ && terraform init'
-                sh 'cd Terraform/ && terraform validate'
-                sh 'cd Terraform/ && terraform plan'
-            }
         } // Success
+
+        // stage('EKS deploying using Terraform') {
+        //     steps {
+        //         sh 'cd Terraform/ && terraform init'
+        //         sh 'cd Terraform/ && terraform validate'
+        //         sh 'cd Terraform/ && terraform plan'
+        //     }
+        // } 
 
         // Deploy
         // stage('Kubernetes') {
