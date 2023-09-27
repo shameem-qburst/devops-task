@@ -14,10 +14,15 @@ pipeline {
             steps {
                 script {
                     // Use the configured SonarQube Scanner tool
-                    def scannerHome = tool name: 'Sonarqube-scanner'
+                    // def scannerHome = tool name: 'Sonarqube-scanner'
 
-                    withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN', installationName: 'Sonarqube-scanner') {
-                        sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
+                    // withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN', installationName: 'Sonarqube-scanner') {
+                    //     sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
+                    // }
+                    docker.image('sonarsource/sonar-scanner-cli').inside {
+                        stage('Sonarqube') {
+                            sh 'sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
+                        }
                     }
                 }
             }
