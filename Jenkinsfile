@@ -7,6 +7,7 @@ pipeline {
         SONAR_URL = "https://66d0-111-93-116-30.ngrok-free.app/"
         SONAR_PROJECT_KEY = "devops-task"
         DOCKERHUB_USER = "shameem2001"
+        KUBECONFIG = '/home/shameem/.kube/config'
     }
 
     stages {
@@ -45,9 +46,7 @@ pipeline {
         // Deploy
         stage('Kubernetes') {
             steps {
-                sh 'export /home/shameem/.kube/config'
-                sh 'kubectl config use-context shameem-context'
-                sh 'kubectl apply -f ./Kubernetes/'
+                sh 'export KUBECONFIG=$KUBECONFIG && kubectl apply -f ./Kubernetes/'
             }
         } // Success
     }
