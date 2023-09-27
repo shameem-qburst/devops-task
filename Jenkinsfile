@@ -26,7 +26,9 @@ pipeline {
         stage('Build Docker image from Django project') {
             steps {
                 sh 'docker build -t $DOCKER_IMAGE_NAME ./django_todo/'
-                sh 'docker login -u $DOCKERHUB_USER -p Seltos@8786'
+                withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'SDOCKERHUB_PASSWORD')]) {
+                    sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
+                }
                 sh 'docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_REPO'
                 sh 'docker push $DOCKER_HUB_REPO'
             }
