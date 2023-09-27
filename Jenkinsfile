@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        sonarqubeScanner 'Sonarqube-scanner'
+    }
     environment {
         DOCKER_IMAGE_NAME = "django-todo-app"
         DOCKER_HUB_REPO = "shameem2001/django-todo-app:v1.0"
@@ -10,7 +13,7 @@ pipeline {
   stages {
     stage('SonarQube Analysis (SAST)') {
       steps {
-        def scannerHome = tool 'Sonarqube-scanner';
+        def scannerHome = tool name: 'Sonarqube-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
         withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'SonarQube') {
             sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
         }
