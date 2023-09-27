@@ -43,7 +43,7 @@ pipeline {
         //     }
         // } // Success
 
-        // EKS cluster
+        // // EKS cluster
         stage('Configuring AWS') {
             steps {
                 sh 'aws --version'
