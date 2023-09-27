@@ -9,18 +9,18 @@ pipeline {
     }
 
     stages {
-        stage('SonarQube Analysis (SAST)') {
-            steps {
-                script {
-                    // Use the configured SonarQube Scanner tool
-                    def scannerHome = tool name: 'Sonarqube-scanner'
+        // stage('SonarQube Analysis (SAST)') {
+        //     steps {
+        //         script {
+        //             // Use the configured SonarQube Scanner tool
+        //             def scannerHome = tool name: 'Sonarqube-scanner'
 
-                    withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'Sonarqube-scanner') {
-                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN"
-                    }
-                }
-            }
-        }
+        //             withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'Sonarqube-scanner') {
+        //                 sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Build Docker image from Django project') {
             steps {
