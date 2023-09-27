@@ -10,30 +10,24 @@ pipeline {
     }
 
     stages {
-        stage('Static code analysis') {
-            steps {
-                script {
-                    // Use the configured SonarQube Scanner tool
-                    // def scannerHome = tool name: 'Sonarqube-scanner'
+        // stage('Static code analysis') {
+        //     steps {
+        //         script {
+        //             docker.image('sonarsource/sonar-scanner-cli').inside {
+        //                 stage('Sonarqube') {
+        //                     withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+        //                         sh 'sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=django_todo -Dsonar.host.url=$SONAR_URL -Dsonar.token=$SONAR_TOKEN'
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // } // Success
 
-                    // withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN', installationName: 'Sonarqube-scanner') {
-                    //     sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
-                    // }
-                    docker.image('sonarsource/sonar-scanner-cli').inside {
-                        stage('Sonarqube') {
-                            withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-                                sh 'sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=django_todo -Dsonar.host.url=$SONAR_URL -Dsonar.token=$SONAR_TOKEN'
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // stage('checkov') {
+        // stage('Analyze IAC code') {
         //     steps {
         //         // sh('pip install checkov')
-        //         sh('/var/lib/jenkins/.local/bin/checkov -s -d /home/shameem/Documents/Devops_Task/first_instance_terraform/ | tee /home/shameem/Training/DevSecOps/checkov-analysis.txt')
+        //         sh('/var/lib/jenkins/.local/bin/checkov -s -d /home/shameem/Documents/Devops_Task/Terraform/ | tee /home/shameem/Training/DevSecOps/checkov-analysis.txt')
         //     }
         // } // Success
 
@@ -47,5 +41,12 @@ pipeline {
         //         sh 'docker push $DOCKER_HUB_REPO'
         //     }
         // } // Success
+
+        // Deploy
+        stage('Kubernetes') {
+            steps {
+                sh 'kubectl'
+            }
+        } // Success
     }
 }
