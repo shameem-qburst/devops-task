@@ -1,4 +1,4 @@
 venv
-django_todo/__pycache__
-todo/__pycache__
-todo/migrations/__pycache__
+# django_todo/__pycache__
+# todo/__pycache__
+# todo/migrations/__pycache__
