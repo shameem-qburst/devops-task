@@ -43,11 +43,19 @@ pipeline {
         //     }
         // } // Success
 
-        // Deploy
-        stage('Kubernetes') {
+        // EKS cluster
+
+        stage('EKS deploying using Terraform') {
             steps {
-                sh 'export KUBECONFIG=$KUBECONFIG && kubectl apply -f ./Kubernetes/'
+                sh 'terraform validate'
             }
         } // Success
+
+        // Deploy
+        // stage('Kubernetes') {
+        //     steps {
+        //         sh 'export KUBECONFIG=$KUBECONFIG && kubectl apply -f ./Kubernetes/'
+        //     }
+        // } // Success
     }
 }
