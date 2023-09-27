@@ -44,6 +44,11 @@ pipeline {
         // } // Success
 
         // EKS cluster
+        stage('Configuring AWS') {
+            steps {
+                sh 'aws --version'
+            }
+        }
 
         stage('EKS deploying using Terraform') {
             steps {
