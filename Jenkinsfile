@@ -45,7 +45,7 @@ pipeline {
         // Deploy
         stage('Kubernetes') {
             steps {
-                sh 'kubectl apply -f ./Kubernetes/'
+                sh 'kubectl config current-context'
             }
         } // Success
     }
