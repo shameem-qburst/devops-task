@@ -28,10 +28,9 @@ metadata:
 spec:
   selector:
     app: django-todo
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 8000
     targetPort: 8000
-    nodePort: 30050
 
 
