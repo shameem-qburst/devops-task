@@ -21,7 +21,7 @@ pipeline {
                     // }
                     docker.image('sonarsource/sonar-scanner-cli').inside {
                         stage('Sonarqube') {
-                            sh 'sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
+                            sh 'sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.token=$SONAR_TOKEN'
                         }
                     }
                 }
