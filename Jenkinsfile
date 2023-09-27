@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = "django-todo-app"
         DOCKER_HUB_REPO = "shameem2001/django-todo-app:v1.0"
-        SONAR_URL = "http://localhost:9000/"
+        SONAR_URL = "https://66d0-111-93-116-30.ngrok-free.app/"
         SONAR_PROJECT_KEY = "devops-task"
         DOCKERHUB_USER = "shameem2001"
     }
