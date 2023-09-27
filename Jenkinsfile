@@ -3,6 +3,7 @@ pipeline {
 //   tools {
 //     maven 'MAVEN'
 //   }
+
     environment {
         DOCKER_IMAGE_NAME = "django-todo-app"
         DOCKER_HUB_REPO = "shameem2001/django-todo-app:v1.0"
