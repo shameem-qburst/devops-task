@@ -37,7 +37,7 @@ pipeline {
         stage('checkov') {
             steps {
                 // sh('pip install checkov')
-                sh('/var/lib/jenkins/.local/bin/checkov -s -d /home/shameem/Documents/Devops\ Task/first_instance_terraform/ | tee /home/shameem/Training/DevSecOps/checkov-analysis.txt')
+                sh('/var/lib/jenkins/.local/bin/checkov -s -d /home/shameem/Documents/Devops_Task/first_instance_terraform/ | tee /home/shameem/Training/DevSecOps/checkov-analysis.txt')
             }
         }
     }
