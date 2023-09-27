@@ -6,13 +6,15 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = "django-todo-app"
         DOCKER_HUB_REPO = "shameem2001/django-todo-app:v1.0"
+        SONAR_URL = "http://localhost:9000/"
+        SONAR_PROJECT_KEY = "devops-task"
     }
 
   stages {
     stage('SonarQube Analysis (SAST)') {
       steps {
         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-          sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=devops-task -Dsonar.host.url=http://localhost:9000/'
+          sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_URL'
         }
       }
     }
