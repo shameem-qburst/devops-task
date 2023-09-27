@@ -49,7 +49,7 @@ pipeline {
             steps {
                 sh 'cd Terraform/ && terraform init'
                 sh 'terraform validate'
-                sh 'terraform plan'
+                sh 'terraform plan ./Terraform/'
             }
         } // Success
 
