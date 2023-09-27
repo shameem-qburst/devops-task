@@ -6,6 +6,7 @@ pipeline {
         DOCKER_HUB_REPO = "shameem2001/django-todo-app:v1.0"
         SONAR_URL = "http://localhost:9000/"
         SONAR_PROJECT_KEY = "devops-task"
+        DOCKERHUB_USER = "shameem2001"
     }
 
     stages {
@@ -25,13 +26,9 @@ pipeline {
         stage('Build Docker image from Django project') {
             steps {
                 sh 'docker build -t $DOCKER_IMAGE_NAME ./django_todo/'
-                withDockerRegistry([string(credentialsId: 'DOCKERHUB_CREDENTIALS', variable: 'DOCKERHUB_CREDENTIALS')]) {
-                    script {
-                        sh 'docker login'
-                        sh 'docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_REPO'
-                        sh 'docker push $DOCKER_HUB_REPO'
-                    }
-                }
+                sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
+                sh 'docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_REPO'
+                sh 'docker push $DOCKER_HUB_REPO'
             }
         }
     }
