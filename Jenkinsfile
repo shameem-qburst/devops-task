@@ -45,7 +45,7 @@ pipeline {
         // Deploy
         stage('Kubernetes') {
             steps {
-                sh 'pwd'
+                sh 'kubectl apply -f ./Kubernetes/'
             }
         } // Success
     }
