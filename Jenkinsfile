@@ -10,7 +10,7 @@ pipeline {
     }
 
     stages {
-        // stage('SonarQube Analysis (SAST)') {
+        // stage('Static code analysis') {
         //     steps {
         //         script {
         //             // Use the configured SonarQube Scanner tool
@@ -23,14 +23,21 @@ pipeline {
         //     }
         // }
 
-        stage('Build Docker image from Django project') {
+        // stage('Build Docker image from Django project') {
+        //     steps {
+        //         sh 'docker build -t $DOCKER_IMAGE_NAME ./django_todo/'
+        //         withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'DOCKERHUB_PASSWORD')]) {
+        //             sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
+        //         }
+        //         sh 'docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_REPO'
+        //         sh 'docker push $DOCKER_HUB_REPO'
+        //     }
+        // } // Success
+
+        stage('checkov') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE_NAME ./django_todo/'
-                withCredentials([string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'DOCKERHUB_PASSWORD')]) {
-                    sh 'docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD'
-                }
-                sh 'docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_REPO'
-                sh 'docker push $DOCKER_HUB_REPO'
+                // sh('pip install checkov')
+                sh('/var/lib/jenkins/.local/bin/checkov -s -d ./first_instance_terraform/ | tee /home/shameem/Training/DevSecOps/checkov-analysis.txt')
             }
         }
     }
