@@ -10,18 +10,25 @@ pipeline {
     }
 
     stages {
-        // stage('Static code analysis') {
-        //     steps {
-        //         script {
-        //             // Use the configured SonarQube Scanner tool
-        //             def scannerHome = tool name: 'Sonarqube-scanner'
+        stage('Static code analysis') {
+            steps {
+                script {
+                    // Use the configured SonarQube Scanner tool
+                    def scannerHome = tool name: 'Sonarqube-scanner'
 
-        //             withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'Sonarqube-scanner') {
-        //                 sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN"
-        //             }
-        //         }
+                    withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN', installationName: 'Sonarqube-scanner') {
+                        sh '${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.sources=./src -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN'
+                    }
+                }
+            }
+        }
+
+        // stage('checkov') {
+        //     steps {
+        //         // sh('pip install checkov')
+        //         sh('/var/lib/jenkins/.local/bin/checkov -s -d /home/shameem/Documents/Devops_Task/first_instance_terraform/ | tee /home/shameem/Training/DevSecOps/checkov-analysis.txt')
         //     }
-        // }
+        // } // Success
 
         // stage('Build Docker image from Django project') {
         //     steps {
@@ -33,12 +40,5 @@ pipeline {
         //         sh 'docker push $DOCKER_HUB_REPO'
         //     }
         // } // Success
-
-        stage('checkov') {
-            steps {
-                // sh('pip install checkov')
-                sh('/var/lib/jenkins/.local/bin/checkov -s -d /home/shameem/Documents/Devops_Task/first_instance_terraform/ | tee /home/shameem/Training/DevSecOps/checkov-analysis.txt')
-            }
-        }
     }
 }
