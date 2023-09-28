@@ -54,7 +54,7 @@ pipeline {
         } 
 
         // Deploy
-        stage('Kubernetes') {
+        stage('Kubernetes deploy') {
             steps {
                 sh 'aws eks update-kubeconfig --region us-east-1 --name eks-cluster'
                 sh 'export KUBECONFIG=$KUBECONFIG && kubectl apply -f ./Kubernetes/'
@@ -65,7 +65,7 @@ pipeline {
         } // Success
 
         // Destroy
-        stage('EKS deploying using Terraform') {
+        stage('Cleaning up things') {
             steps {
                 sh 'cd Terraform/ && terraform destroy -auto-approve'
                 sh 'echo "Pipeline complete"'
