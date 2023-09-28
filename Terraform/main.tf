@@ -1,6 +1,6 @@
 provider "aws" {
   region = "us-east-1"
-  shared_credentials_files = "/home/shameem/Important Docs/AWS/shameem AWS IAM access key/.credentials.csv"
+  shared_credentials_files = ["/home/shameem/Important Docs/AWS/shameem AWS IAM access key/.credentials.csv"]
   profile = "shameem"
 }
 
