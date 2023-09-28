@@ -58,10 +58,10 @@ pipeline {
         // Deploy
         stage('Kubernetes deploy') {
             steps {
-                withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'), string(credentialsId: 'AWS_ACCESS_KEY', variable: 'AWS_ACCESS_KEY')]) {
+                withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'), string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh 'aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID'
-                    sh 'aws configure set aws_secret_access_key $AWS_ACCESS_KEY'
-                
+                    sh 'aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY'
+                }
                 sh 'aws eks update-kubeconfig --region us-east-1 --name eks-cluster'
                 sh 'export KUBECONFIG=$KUBECONFIG && kubectl apply -f ./Kubernetes/'
                 sh 'kubectl get nodes'
@@ -69,7 +69,6 @@ pipeline {
                 sh 'sleep 400'
             }
         } // Success
-        }
         // Destroy
         stage('Cleaning up things') {
             steps {
