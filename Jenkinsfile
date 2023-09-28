@@ -57,6 +57,7 @@ pipeline {
         stage('Kubernetes deploy') {
             steps {
                 sh 'aws --version'
+                sh 'aws configure'
                 sh 'aws eks update-kubeconfig --region us-east-1 --name eks-cluster'
                 sh 'export KUBECONFIG=$KUBECONFIG && kubectl apply -f ./Kubernetes/'
                 sh 'kubectl get nodes'
