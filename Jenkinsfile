@@ -69,7 +69,7 @@ pipeline {
                 sh 'sleep 400'
             }
         } // Success
-
+        }
         // Destroy
         stage('Cleaning up things') {
             steps {
@@ -79,6 +79,5 @@ pipeline {
                 }
             }
         } // success
-    }
     }
 }
