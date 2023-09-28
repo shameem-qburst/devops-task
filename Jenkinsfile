@@ -56,8 +56,9 @@ pipeline {
         // Deploy
         stage('Kubernetes deploy') {
             steps {
-                sh 'aws --version'
-                sh 'aws configure'
+                withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'), string(credentialsId: 'AWS_ACCESS_KEY', variable: 'AWS_ACCESS_KEY')]) {
+                    sh 'aws configure --aws-access-key $AWS_ACCESS_KEY_ID --aws-secret-key $AWS_ACCESS_KEY'
+                }
                 sh 'aws eks update-kubeconfig --region us-east-1 --name eks-cluster'
                 sh 'export KUBECONFIG=$KUBECONFIG && kubectl apply -f ./Kubernetes/'
                 sh 'kubectl get nodes'
