@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: django-todo
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: django-todo
@@ -13,7 +14,7 @@ spec:
     spec:
       containers:
       - name: django-todo
-        image: shameem2001/django-todo-app:v1.0
+        image: shameem2001/django-todo-app:v2.0
         resources:
           limits:
             memory: "128Mi"
@@ -26,11 +27,11 @@ kind: Service
 metadata:
   name: django-todo
   # annotations:
-  #   service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  #   service.beta.kubernetes.io/aws-load-balancer-name: a41b99b5feebd4f5a934efd4714d063d-703219868.us-east-1.elb.amazonaws.com
 spec:
   selector:
     app: django-todo
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
   - port: 80
     targetPort: 8000

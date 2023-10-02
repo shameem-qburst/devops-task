@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: django-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: a41b99b5feebd4f5a934efd4714d063d-703219868.us-east-1.elb.amazonaws.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: django-todo
+                port:
+                  number: 80
+  tls:
+    - hosts:
+      - a41b99b5feebd4f5a934efd4714d063d-703219868.us-east-1.elb.amazonaws.com #loadbalancer for ingress controller 
+      secretName: my-selfsigned-secret
